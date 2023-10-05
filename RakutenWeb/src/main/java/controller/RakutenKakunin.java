@@ -1,0 +1,72 @@
+package controller;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import object.UserInfoObj;
+import service.KakuninService;
+
+/**
+ * Servlet implementation class RakutenKakunin
+ */
+@WebServlet("/RakutenKakunin")
+public class RakutenKakunin extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public RakutenKakunin() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		response.setCharacterEncoding("UTF-8");
+		// 在 Servlet 中
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/RakutenLogin.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// 从 session 中获取 UserInfoObj 对象
+        HttpSession session = request.getSession();
+        UserInfoObj userInfoObj = (UserInfoObj) session.getAttribute("userInfoObj");
+
+        // 在这里可以使用获取到的对象进行其他操作
+        System.out.println("User Email in Confirmation Servlet: " + userInfoObj.getEmail());
+
+        // 清除 session 中的对象（如果需要）
+        session.removeAttribute("userInfoObj");
+
+		try {
+
+			KakuninService kakuninService = new KakuninService();
+			kakuninService.addUserInfo(userInfoObj);
+			
+			//request.setAttribute("userInfoObj", userInfoObj);
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/kanryou.jsp");
+			dispatcher.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+}

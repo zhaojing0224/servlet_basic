@@ -920,7 +920,7 @@ table.address {
 <label for="igai">メールアドレス以外をユーザIDとして使用</label><br>    
 <6文字以上・半角英数字> 数字だけにすることはできません<br>
 
-<div id="user"><input type="text" name="u" maxlength="100" size="50" value="" class="text userid" title="(例) rakuten1234"></div>
+<input type="text" id="userId" name="userId" maxlength="100" size="50" class="text userid">
 
 
 
@@ -949,7 +949,7 @@ table.address {
 <em><6文字以上半角英数字><br>
     「ユーザID」と同じものは登録できません<br>
     第三者によるログインを防ぐために、できるだけ複雑なものを設定してください。<br>
-<div id="password"><input type="password" name="p" maxlength="128" size="20" value="" class="text password" title="(例) 18f5ns1kzm"></div>
+<input type="password" name="password" maxlength="128" size="20" value="" class="text password" title="(例) 18f5ns1kzm">
        <br><br>
 </em>
 </td>
